@@ -1,0 +1,97 @@
+Value,Suit,Aura,Event,Calling
+1,Agility,Neutral,Baptism by Fire,Youthful Enthusiasm
+2,Agility,Neutral,Time to Reflect,Peace of Mind
+3,Agility,Negative,Rookie Mistake,Youthful Enthusiasm
+3,Agility,Neutral,Explosion,Youthful Enthusiasm
+4,Agility,Positive,Help from Above,Protector
+4,Agility,Negative,Bigotry,Exemplar
+4,Agility,Positive,Emotional Growth,Youthful Enthusiasm
+4,Agility,Neutral,Something in the Sewers,Animal Nature
+5,Agility,Negative,Change of Heart,Repentant
+5,Agility,Neutral,Goons,Adventurer
+5,Agility,Neutral,The Press Arrives,Gloryhound
+5,Agility,Positive,Flight of Fancy,Adventurer
+6,Agility,Neutral,Costume Damage,Thrill-Seeker
+6,Agility,Neutral,Accidental Revelation,Repentant
+6,Agility,Negative,Xenophobic Hysteria,Outcast
+6,Agility,Negative,Lack of Support,Soldier
+7,Agility,Positive,Rescue,Guardian
+7,Agility,Positive,Glimmer of Compassion,Animal Nature
+8,Agility,Neutral,Dramatic Entrance,Adventurer
+9,Agility,Neutral,Warning of Danger,Responsibility of Power
+1,Intellect,Positive,Cry for Help,Responsibility of Power
+2,Intellect,Positive,Target of Opportunity,Soldier
+3,Intellect,Negative,Out of Control,Uncontrolled Power
+3,Intellect,Neutral,Attraction of Attention,Outcast
+4,Intellect,Neutral,Link to the Past,Exemplar
+4,Intellect,Neutral,Weapons Cache,Soldier
+4,Intellect,Negative,Dismissiveness,Idealist
+4,Intellect,Neutral,Endangered Innocents,Protector
+5,Intellect,Positive,Redemption,Repentant
+5,Intellect,Neutral,Compromising Information,Investigator
+5,Intellect,Neutral,Strong Evidence,Investigator
+5,Intellect,Neutral,Armed Forces,Soldier
+6,Intellect,Neutral,Blow for Freedom,Majesty
+6,Intellect,Negative,Setback,Investigator
+6,Intellect,Neutral,Rift,Explorer
+6,Intellect,Negative,Uncharted Waters,Explorer
+7,Intellect,Positive,Breakthrough,Investigator
+7,Intellect,Neutral,Inexplicable Disappearance,Explorer
+8,Intellect,Negative,Too Many Crises,Responsibility of Power
+9,Intellect,Positive,New Discovery,Explorer
+1,Strength,Neutral,Scent of Prey,Animal Nature
+2,Strength,Positive,Power Surge,Vestige of Humanity
+3,Strength,Negative,Premature Exposure,Gloryhound
+3,Strength,Neutral,Like-Minded Alignment,Idealist
+4,Strength,Neutral,Validation,Exemplar
+4,Strength,Positive,Wild Ride,Thrill-Seeker
+4,Strength,Neutral,No Restrictions,Thrill-Seeker
+4,Strength,Neutral,Remembrance of Home,Vestige of Humanity
+5,Strength,Neutral,Commanding Presence,Majesty
+5,Strength,Negative,Hostage Situation ,Protector
+5,Strength,Neutral,Overload,Uncontrolled Power
+5,Strength,Negative,Energy Flux,Vestige of Humanity
+6,Strength,Positive,Public Accolades,Gloryhound
+6,Strength,Negative,Refusal of Authority,Majesty
+6,Strength,Neutral,Emergency,Responsibility of Power
+6,Strength,Neutral,Ignored,Gloryhound
+7,Strength,Negative,Arduous Labours,Adventurer
+7,Strength,Positive,Hero Worship,Exemplar
+8,Strength,Neutral,Soul Searching,Repentant
+9,Strength,Positive,Cautious Acceptance,Outcast
+1,Willpower,Positive,Team Unity,Mentor
+2,Willpower,Negative,Fractured Reality,Peace of Mind
+3,Willpower,Negative,Reckless Leap,Thrill-Seeker
+3,Willpower,Neutral,Manipulation,Peace of Mind
+4,Willpower,Neutral,Sudden Transformation,Uncontrolled Power
+4,Willpower,Positive,Mastery,Uncontrolled Power
+4,Willpower,Neutral,New Disciples,Mentor
+4,Willpower,Neutral,Natural Disaster,Protector
+5,Willpower,Neutral,Sacrifice,Vestige of Humanity
+5,Willpower,Positive,Adulation,Majesty
+5,Willpower,Neutral,Significant Other,Guardian
+5,Willpower,Negative,Humanity Loss,Animal Nature
+6,Willpower,Positive,Transcendence,Peace of Mind
+6,Willpower,Neutral,Mistaken Identify,Outcast
+6,Willpower,Negative,Personal Tragedy,Guardian
+6,Willpower,Negative,Negative Influence,Mentor
+7,Willpower,Neutral,Misguided Soul,Mentor
+7,Willpower,Neutral,Crisis of Faith,Idealist
+8,Willpower,Positive,Never Say Die,Idealist
+9,Willpower,Neutral,Safe Haven,Guardian
+1,Doom,Negative,Worthlessness,Greed
+2,Doom,Negative,Police Sirens,Greed
+3,Doom,Positive,Unprotected Valuables,Greed
+3,Doom,Negative,Collateral Damage,Demolisher
+4,Doom,Positive,Cunning Scheme,Vengeance
+4,Doom,Negative,Blinded by Rage,Vengeance
+5,Doom,Negative,Hazmat Leak,Demolisher
+5,Doom,Positive,Chance Windfall,Greed
+6,Doom,Positive,Structural Collapse,Demolisher
+6,Doom,Negative,Betrayal,Vengeance
+7,Doom,Negative,Mass Panic,World Domination
+7,Doom,Positive,Unstable Ground,Demolisher
+8,Doom,Negative,Achilles Heel,World Domination
+8,Doom,Positive,Retributive Strike,Vengeance
+9,Doom,Positive,Pyrrhic Victory,World Domination
+10,Doom,Positive,Blind Obedience,World Domination
