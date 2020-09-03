@@ -8,12 +8,13 @@ Created on Wed Sep  2 18:29:13 2020
 import random
 import pandas as pd
 
-hands = {"GM":[],} #registers cards to  a character
-users = {} #registers user to a character
+hands = {"GM":[], "Narrative":[]} #registers cards to  a character
+chars = {} #registers user to a character
 drawn_cards = []
+discard = []
 
-def register(user, char): 
-    users.update({user:char})
+def register(user, char):
+    chars.update({user:char})
     hands.update({char:[]})
     return "{} registered to {}.".format(char, user)
 
@@ -25,48 +26,84 @@ def fromdeck():
     return card
 
 def draw(user, number = 1):
-    initial = len(hands[users[user]])
-    while len(hands[users[user]]) < (initial + number):
+    initial = len(hands[chars[user]])
+    while len(hands[chars[user]]) < (initial + number):
         x = fromdeck()
         drawn_cards.append(x)
-        hands[users[user]].append(x)
-    return "{} has drawn {} cards".format(users[user], number)
+        hands[chars[user]].append(x)
+    return "{} has drawn {} cards".format(chars[user], number)
 
-def show(hand): print(str(hand))
+def show(user, card):
+    if (card in hands[chars[user]]):
+        x = "{} revealed a card:\n{}".format(chars[user], deck.iloc[card]['Link'])
+    else: x = "No such card in your hand."
+    return x
 
 def play(user, card):
     doom = False
-    if (card in hands[users[user]]):
-        hands[users[user]].remove(card)
-        if deck.iloc[card]['Suit'] == "Doom" and users[user] != "GM":
+    if (card in hands[chars[user]]):
+        hands[chars[user]].remove(card)
+        if deck.iloc[card]['Suit'] == "Doom" and chars[user] != "GM":
             hands["GM"].append(card)
             doom = True
         else: drawn_cards.remove(card)
-        x = "{} played \n`{}`.".format(users[user], deck.loc[[card]])
+        x = "{} played \n{}.".format(chars[user], deck.iloc[card]['Link'])
         if doom:
-            x += "\n\nA player has spent a Doom suit card!\nGM's new hand:\n`{}`".format(deck.loc[hands["GM"]])
-            #showhand("GM")
+            x += "\n\n{} has played a Doom suit card!\nGM's new hand:\n`{}`".format(chars[user], deck.loc[hands["GM"]])
     else: x = "No such card."
     return x
 
-def reset(): 
+def reset():
     drawn_cards = []
-    players = {"GM":[],}
+    discard = []
+    hands = {"GM":[], "Narrative":[]}
+    chars = {}
+    print("Reset!")
 
-def flip(): print(deck.loc[[fromdeck()]])
+def flip(narrative = False): 
+    new = fromdeck()
+    if narrative:
+        if len(hands["Narrative"]) > 0:
+            old = hands["Narrative"][0]
+            hands["Narrative"].remove(old)
+            drawn_cards.remove(old)
+        hands["Narrative"].append(new)
+        drawn_cards.append(new)
+    return deck.iloc[new]['Link']
 
-def lose(hand, number=1):
+def lose(user, number=1):
     for _ in range(number):
-        card = random.choice(players[hand])
-        players[hand].remove(card)
+        card = random.choice(hands[chars[user]])
+        hands[chars[user]].remove(card)
         drawn_cards.remove(card)
         print("Lost card {}".format(card))
 
 def showhand(user):
-    return "`{}`".format(deck.loc[hands[users[user]]])
-    
+    #Text
+    return "`{}`".format(deck.loc[hands[chars[user]], "Value":"Calling"]) 
+    #Images
+    #x = ""
+    #for i in hands[chars[user]]:
+    #    x += "{}\n".format(deck.iloc[i]['Link'])
+
+def showhandimage(user):
+    #x = "Your hand, {}\n".format(users[user])
+    x = ""
+    for card in hands[chars[user]]:
+        x += "{} ".format(deck.iloc[card]['Link'])
+#    return "{}".format(deck.loc[hands[users[user]]]['Link'])
+    return x
+
 def handsizes():
-    for key in players: 
-        print("{}'s hand size: {}".format(key, len(players[key])))
+    x = ""
+    for key in hands: 
+        x += "{}'s hand size: {}\n".format(key, len(hands[key]))
+    return x
+
+def debug():
+    x = "Drawn cards = {}\nDiscarded cards = {}\n".format(drawn_cards, discard)
+    for key in hands: x+= "{} has {}\n".format(key, hands[key])
+    return x
 
 deck = pd.read_csv('deck.csv')
+deck.index.name = "Card"
