@@ -1,97 +1,97 @@
-Value,Suit,Aura,Event,Calling
-1,Agility,Neutral,Baptism by Fire,Youthful Enthusiasm
-2,Agility,Neutral,Time to Reflect,Peace of Mind
-3,Agility,Negative,Rookie Mistake,Youthful Enthusiasm
-3,Agility,Neutral,Explosion,Youthful Enthusiasm
-4,Agility,Positive,Help from Above,Protector
-4,Agility,Negative,Bigotry,Exemplar
-4,Agility,Positive,Emotional Growth,Youthful Enthusiasm
-4,Agility,Neutral,Something in the Sewers,Animal Nature
-5,Agility,Negative,Change of Heart,Repentant
-5,Agility,Neutral,Goons,Adventurer
-5,Agility,Neutral,The Press Arrives,Gloryhound
-5,Agility,Positive,Flight of Fancy,Adventurer
-6,Agility,Neutral,Costume Damage,Thrill-Seeker
-6,Agility,Neutral,Accidental Revelation,Repentant
-6,Agility,Negative,Xenophobic Hysteria,Outcast
-6,Agility,Negative,Lack of Support,Soldier
-7,Agility,Positive,Rescue,Guardian
-7,Agility,Positive,Glimmer of Compassion,Animal Nature
-8,Agility,Neutral,Dramatic Entrance,Adventurer
-9,Agility,Neutral,Warning of Danger,Responsibility of Power
-1,Intellect,Positive,Cry for Help,Responsibility of Power
-2,Intellect,Positive,Target of Opportunity,Soldier
-3,Intellect,Negative,Out of Control,Uncontrolled Power
-3,Intellect,Neutral,Attraction of Attention,Outcast
-4,Intellect,Neutral,Link to the Past,Exemplar
-4,Intellect,Neutral,Weapons Cache,Soldier
-4,Intellect,Negative,Dismissiveness,Idealist
-4,Intellect,Neutral,Endangered Innocents,Protector
-5,Intellect,Positive,Redemption,Repentant
-5,Intellect,Neutral,Compromising Information,Investigator
-5,Intellect,Neutral,Strong Evidence,Investigator
-5,Intellect,Neutral,Armed Forces,Soldier
-6,Intellect,Neutral,Blow for Freedom,Majesty
-6,Intellect,Negative,Setback,Investigator
-6,Intellect,Neutral,Rift,Explorer
-6,Intellect,Negative,Uncharted Waters,Explorer
-7,Intellect,Positive,Breakthrough,Investigator
-7,Intellect,Neutral,Inexplicable Disappearance,Explorer
-8,Intellect,Negative,Too Many Crises,Responsibility of Power
-9,Intellect,Positive,New Discovery,Explorer
-1,Strength,Neutral,Scent of Prey,Animal Nature
-2,Strength,Positive,Power Surge,Vestige of Humanity
-3,Strength,Negative,Premature Exposure,Gloryhound
-3,Strength,Neutral,Like-Minded Alignment,Idealist
-4,Strength,Neutral,Validation,Exemplar
-4,Strength,Positive,Wild Ride,Thrill-Seeker
-4,Strength,Neutral,No Restrictions,Thrill-Seeker
-4,Strength,Neutral,Remembrance of Home,Vestige of Humanity
-5,Strength,Neutral,Commanding Presence,Majesty
-5,Strength,Negative,Hostage Situation ,Protector
-5,Strength,Neutral,Overload,Uncontrolled Power
-5,Strength,Negative,Energy Flux,Vestige of Humanity
-6,Strength,Positive,Public Accolades,Gloryhound
-6,Strength,Negative,Refusal of Authority,Majesty
-6,Strength,Neutral,Emergency,Responsibility of Power
-6,Strength,Neutral,Ignored,Gloryhound
-7,Strength,Negative,Arduous Labours,Adventurer
-7,Strength,Positive,Hero Worship,Exemplar
-8,Strength,Neutral,Soul Searching,Repentant
-9,Strength,Positive,Cautious Acceptance,Outcast
-1,Willpower,Positive,Team Unity,Mentor
-2,Willpower,Negative,Fractured Reality,Peace of Mind
-3,Willpower,Negative,Reckless Leap,Thrill-Seeker
-3,Willpower,Neutral,Manipulation,Peace of Mind
-4,Willpower,Neutral,Sudden Transformation,Uncontrolled Power
-4,Willpower,Positive,Mastery,Uncontrolled Power
-4,Willpower,Neutral,New Disciples,Mentor
-4,Willpower,Neutral,Natural Disaster,Protector
-5,Willpower,Neutral,Sacrifice,Vestige of Humanity
-5,Willpower,Positive,Adulation,Majesty
-5,Willpower,Neutral,Significant Other,Guardian
-5,Willpower,Negative,Humanity Loss,Animal Nature
-6,Willpower,Positive,Transcendence,Peace of Mind
-6,Willpower,Neutral,Mistaken Identify,Outcast
-6,Willpower,Negative,Personal Tragedy,Guardian
-6,Willpower,Negative,Negative Influence,Mentor
-7,Willpower,Neutral,Misguided Soul,Mentor
-7,Willpower,Neutral,Crisis of Faith,Idealist
-8,Willpower,Positive,Never Say Die,Idealist
-9,Willpower,Neutral,Safe Haven,Guardian
-1,Doom,Negative,Worthlessness,Greed
-2,Doom,Negative,Police Sirens,Greed
-3,Doom,Positive,Unprotected Valuables,Greed
-3,Doom,Negative,Collateral Damage,Demolisher
-4,Doom,Positive,Cunning Scheme,Vengeance
-4,Doom,Negative,Blinded by Rage,Vengeance
-5,Doom,Negative,Hazmat Leak,Demolisher
-5,Doom,Positive,Chance Windfall,Greed
-6,Doom,Positive,Structural Collapse,Demolisher
-6,Doom,Negative,Betrayal,Vengeance
-7,Doom,Negative,Mass Panic,World Domination
-7,Doom,Positive,Unstable Ground,Demolisher
-8,Doom,Negative,Achilles Heel,World Domination
-8,Doom,Positive,Retributive Strike,Vengeance
-9,Doom,Positive,Pyrrhic Victory,World Domination
-10,Doom,Positive,Blind Obedience,World Domination
+Value,Suit,Aura,Event,Calling,Link
+1,Agility,Neutral,Baptism by Fire,Youthful Enthusiasm,https://i.imgur.com/2TVXnGX.jpg
+2,Agility,Neutral,Time to Reflect,Peace of Mind,https://i.imgur.com/gVZqlJy.jpg
+3,Agility,Negative,Rookie Mistake,Youthful Enthusiasm,https://i.imgur.com/nuDJHmG.jpg
+3,Agility,Neutral,Explosion,Youthful Enthusiasm,https://i.imgur.com/ZRAJZLV.jpg
+4,Agility,Positive,Help from Above,Protector,https://i.imgur.com/3xAv2dU.jpg
+4,Agility,Negative,Bigotry,Exemplar,https://i.imgur.com/biHlN0n.jpg
+4,Agility,Positive,Emotional Growth,Youthful Enthusiasm,https://i.imgur.com/0IBJT6K.jpg
+4,Agility,Neutral,Something in the Sewers,Animal Nature,https://i.imgur.com/WuSPkRY.jpg
+5,Agility,Negative,Change of Heart,Repentant,https://i.imgur.com/T1uZepl.jpg
+5,Agility,Neutral,Goons,Adventurer,https://i.imgur.com/xr6y8Ns.jpg
+5,Agility,Neutral,The Press Arrives,Gloryhound,https://i.imgur.com/Tu67qwb.jpg
+5,Agility,Positive,Flight of Fancy,Adventurer,https://i.imgur.com/ykWGTi0.jpg
+6,Agility,Neutral,Costume Damage,Thrill-Seeker,https://i.imgur.com/Luqkb9f.jpg
+6,Agility,Neutral,Accidental Revelation,Repentant,https://i.imgur.com/wTEjdvB.jpg
+6,Agility,Negative,Xenophobic Hysteria,Outcast,https://i.imgur.com/HjNTWEW.jpg
+6,Agility,Negative,Lack of Support,Soldier,https://i.imgur.com/U3Wr3J0.jpg
+7,Agility,Positive,Rescue,Guardian,https://i.imgur.com/mcchUlP.jpg
+7,Agility,Positive,Glimmer of Compassion,Animal Nature,https://i.imgur.com/sfdN1Zf.jpg
+8,Agility,Neutral,Dramatic Entrance,Adventurer,https://i.imgur.com/5HAnrDU.jpg
+9,Agility,Neutral,Warning of Danger,Responsibility of Power,https://i.imgur.com/Fg9TKxH.jpg
+1,Intellect,Positive,Cry for Help,Responsibility of Power,https://i.imgur.com/MwxHWQO.jpg
+2,Intellect,Positive,Target of Opportunity,Soldier,https://i.imgur.com/YayCHRv.jpg
+3,Intellect,Negative,Out of Control,Uncontrolled Power,https://i.imgur.com/ekN1DvF.jpg
+3,Intellect,Neutral,Attraction of Attention,Outcast,https://i.imgur.com/ByVU9g7.jpg
+4,Intellect,Neutral,Link to the Past,Exemplar,https://i.imgur.com/KfGEWhZ.jpg
+4,Intellect,Neutral,Weapons Cache,Soldier,https://i.imgur.com/8gIXvnD.jpg
+4,Intellect,Negative,Dismissiveness,Idealist,https://i.imgur.com/qI1qLqb.jpg
+4,Intellect,Neutral,Endangered Innocents,Protector,https://i.imgur.com/7F8BR8V.jpg
+5,Intellect,Positive,Redemption,Repentant,https://i.imgur.com/APwxn5E.jpg
+5,Intellect,Neutral,Compromising Information,Investigator,https://i.imgur.com/vAbIRds.jpg
+5,Intellect,Neutral,Strong Evidence,Investigator,https://i.imgur.com/i96w1x9.jpg
+5,Intellect,Neutral,Armed Forces,Soldier,https://i.imgur.com/i4ENgcY.jpg
+6,Intellect,Neutral,Blow for Freedom,Majesty,https://i.imgur.com/ktDTGRp.jpg
+6,Intellect,Negative,Setback,Investigator,https://i.imgur.com/KuUvj6L.jpg
+6,Intellect,Neutral,Rift,Explorer,https://i.imgur.com/z8aM6sN.jpg
+6,Intellect,Negative,Uncharted Waters,Explorer,https://i.imgur.com/SPJjCP3.jpg
+7,Intellect,Positive,Breakthrough,Investigator,https://i.imgur.com/YTPccZm.jpg
+7,Intellect,Neutral,Inexplicable Disappearance,Explorer,https://i.imgur.com/kPPgR1T.jpg
+8,Intellect,Negative,Too Many Crises,Responsibility of Power,https://i.imgur.com/XQxjZQQ.jpg
+9,Intellect,Positive,New Discovery,Explorer,https://i.imgur.com/XXScdAz.jpg
+1,Strength,Neutral,Scent of Prey,Animal Nature,https://i.imgur.com/Bz2qeaJ.jpg
+2,Strength,Positive,Power Surge,Vestige of Humanity,https://i.imgur.com/ZJfneGT.jpg
+3,Strength,Negative,Premature Exposure,Gloryhound,https://i.imgur.com/uGpscJb.jpg
+3,Strength,Neutral,Like-Minded Alignment,Idealist,https://i.imgur.com/hB6LRWx.jpg
+4,Strength,Neutral,Validation,Exemplar,https://i.imgur.com/dtwrShz.jpg
+4,Strength,Positive,Wild Ride,Thrill-Seeker,https://i.imgur.com/0THZfW4.jpg
+4,Strength,Neutral,No Restrictions,Thrill-Seeker,https://i.imgur.com/gbmiQ7V.jpg
+4,Strength,Neutral,Remembrance of Home,Vestige of Humanity,https://i.imgur.com/vEcDYPQ.jpg
+5,Strength,Neutral,Commanding Presence,Majesty,https://i.imgur.com/9PhD00I.jpg
+5,Strength,Negative,Hostage Situation ,Protector,https://i.imgur.com/eiE8vEZ.jpg
+5,Strength,Neutral,Overload,Uncontrolled Power,https://i.imgur.com/jd95q7x.jpg
+5,Strength,Negative,Energy Flux,Vestige of Humanity,https://i.imgur.com/NiTGfMK.jpg
+6,Strength,Positive,Public Accolades,Gloryhound,https://i.imgur.com/4GEFLVM.jpg
+6,Strength,Negative,Refusal of Authority,Majesty,https://i.imgur.com/ChVqt6J.jpg
+6,Strength,Neutral,Emergency,Responsibility of Power,https://i.imgur.com/rRntZI8.jpg
+6,Strength,Neutral,Ignored,Gloryhound,https://i.imgur.com/NDMmU5Z.jpg
+7,Strength,Negative,Arduous Labours,Adventurer,https://i.imgur.com/oXyhuQt.jpg
+7,Strength,Positive,Hero Worship,Exemplar,https://i.imgur.com/MKOgXLB.jpg
+8,Strength,Neutral,Soul Searching,Repentant,https://i.imgur.com/jymyfuB.jpg
+9,Strength,Positive,Cautious Acceptance,Outcast,https://i.imgur.com/MEQe7gf.jpg
+1,Willpower,Positive,Team Unity,Mentor,https://i.imgur.com/M9SQ9OV.jpg
+2,Willpower,Negative,Fractured Reality,Peace of Mind,https://i.imgur.com/bLlTkGb.jpg
+3,Willpower,Negative,Reckless Leap,Thrill-Seeker,https://i.imgur.com/STbxtA7.jpg
+3,Willpower,Neutral,Manipulation,Peace of Mind,https://i.imgur.com/OOyhJbS.jpg
+4,Willpower,Neutral,Sudden Transformation,Uncontrolled Power,https://i.imgur.com/x1AB0iE.jpg
+4,Willpower,Positive,Mastery,Uncontrolled Power,https://i.imgur.com/PGffb3d.jpg
+4,Willpower,Neutral,New Disciples,Mentor,https://i.imgur.com/M72AF3D.jpg
+4,Willpower,Neutral,Natural Disaster,Protector,https://i.imgur.com/IfU8Ruc.jpg
+5,Willpower,Neutral,Sacrifice,Vestige of Humanity,https://i.imgur.com/ZtDGb1j.jpg
+5,Willpower,Positive,Adulation,Majesty,https://i.imgur.com/7QXglTo.jpg
+5,Willpower,Neutral,Significant Other,Guardian,https://i.imgur.com/Tu67qwb.jpg
+5,Willpower,Negative,Humanity Loss,Animal Nature,https://i.imgur.com/aFqYL4f.jpg
+6,Willpower,Positive,Transcendence,Peace of Mind,https://i.imgur.com/xdayDly.jpg
+6,Willpower,Neutral,Mistaken Identity,Outcast,https://i.imgur.com/tDaALZX.jpg
+6,Willpower,Negative,Personal Tragedy,Guardian,https://i.imgur.com/YmPMVom.jpg
+6,Willpower,Negative,Negative Influence,Mentor,https://i.imgur.com/k2KLL8S.jpg
+7,Willpower,Neutral,Misguided Soul,Mentor,https://i.imgur.com/R3yadl1.jpg
+7,Willpower,Neutral,Crisis of Faith,Idealist,https://i.imgur.com/pwdRMsX.jpg
+8,Willpower,Positive,Never Say Die,Idealist,https://i.imgur.com/41GJfn7.jpg
+9,Willpower,Neutral,Safe Haven,Guardian,https://i.imgur.com/eR6QP4H.jpg
+1,Doom,Negative,Worthlessness,Greed,https://i.imgur.com/6GTcvXO.jpg
+2,Doom,Negative,Police Sirens,Greed,https://i.imgur.com/wVyBBat.jpg
+3,Doom,Positive,Unprotected Valuables,Greed,https://i.imgur.com/q4XEHA5.jpg
+3,Doom,Negative,Collateral Damage,Demolisher,https://i.imgur.com/qck625U.jpg
+4,Doom,Positive,Cunning Scheme,Vengeance,https://i.imgur.com/0nVuYdz.jpg
+4,Doom,Negative,Blinded by Rage,Vengeance,https://i.imgur.com/TXdqCIi.jpg
+5,Doom,Negative,Hazmat Leak,Demolisher,https://i.imgur.com/DXMCgTn.jpg
+5,Doom,Positive,Chance Windfall,Greed,https://i.imgur.com/knCsprx.jpg
+6,Doom,Positive,Structural Collapse,Demolisher,https://i.imgur.com/Z4QrTMj.jpg
+6,Doom,Negative,Betrayal,Vengeance,https://i.imgur.com/pihbJYo.jpg
+7,Doom,Negative,Mass Panic,World Domination,https://i.imgur.com/5g9VH8L.jpg
+7,Doom,Positive,Unstable Ground,Demolisher,https://i.imgur.com/GYFXpe9.jpg
+8,Doom,Negative,Achilles Heel,World Domination,https://i.imgur.com/MsAsKFM.jpg
+8,Doom,Positive,Retributive Strike,Vengeance,https://i.imgur.com/DcyFcPR.jpg
+9,Doom,Positive,Pyrrhic Victory,World Domination,https://i.imgur.com/voupbjd.jpg
+10,Doom,Positive,Blind Obedience,World Domination,https://i.imgur.com/Mfd89lE.jpg
