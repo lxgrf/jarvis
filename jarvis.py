@@ -36,7 +36,7 @@ def deregister(user):
 
 def fromdeck():
     card = False
-    while card == False:
+    while card == False: #Loop till you're good. Warning - if you can't be good, this will break things.
         x = random.randrange(96)
         if (x not in drawn_cards): card = x
     return card
@@ -51,7 +51,7 @@ def draw(user, number = 1):
 
 def show(user, card):
     if (card in hands[chars[user]]):
-        x = "{} revealed a card:\n{}".format(chars[user], deck.iloc[card]['Link'])
+        x = "{} revealed a card without playing it:\n{}".format(chars[user], deck.iloc[card]['Link'])
     else: x = "No such card in your hand."
     return x
 
@@ -70,7 +70,7 @@ def play(user, card):
     else: x = "No such card."
     return x, y
 
-def reset():
+def reset(): #There's a better way to do this. Involving classes. Look into that.
     global drawn_cards
     global discard
     global hands
@@ -108,7 +108,6 @@ def showhand(user="GM"):
     #for i in hands[chars[user]]:
     #    x += "{}\n".format(deck.iloc[i]['Link'])
     #    return x
-
 
 def handsizes():
     x = ""

@@ -6,7 +6,6 @@ Created on Wed Sep  2 19:49:03 2020
 """
 
 import os
-
 import discord
 from dotenv import load_dotenv
 import jarvis
@@ -17,7 +16,6 @@ GUILD = os.getenv('DISCORD_GUILD')
 
 client = discord.Client()
 
-
 @client.event
 async def on_ready():
     guild = discord.utils.get(client.guilds, name=GUILD)
@@ -26,14 +24,13 @@ async def on_ready():
         f'{guild.name}(id: {guild.id})'
     )
 
-
 @client.event
 async def on_message(message):
-    if message.author == client.user:
+    if message.author == client.user: # Stop the bot from replying to itself
         return
     user = message.author.name
     command = message.content.split(" ")
-    action = command[0]
+    action = command[0] # Extract first word to check against commands
 
     if action == "Morning.":
         await message.channel.send("Good morning, {}.".format(user))
@@ -56,22 +53,23 @@ async def on_message(message):
     elif action == ".play" or action == ".p":
         if len(command)>1:
             response, doom = jarvis.play(user, int(command[1]))
+                 # play returns two messages, the second being the string for moving Doom to the GM's hand. Blank if that didn't happen.
+                 # Splitting it up cleaned up the formatting, as it shows embedded images at the end of the message rather than inline
             await message.author.send(jarvis.showhand(user))
         else: response = "Which card did you wish to play?"
         await message.channel.send(response)
         if doom is not "": await message.channel.send(doom)
 
     elif action == ".show" or action == ".s":
-        if len(command)>1:
-            response = jarvis.show(user, int(command[1]))
+        if len(command)>1: response = jarvis.show(user, int(command[1]))
         else: response = "Which card did you wish to show?"
         await message.channel.send(response)
 
     elif action == ".flip" or action == ".f": await message.channel.send(jarvis.flip())
 
     elif action == ".narrative" or action == ".n":
-        pinned = await message.channel.pins()
-        for msg in pinned: await msg.unpin()
+        pinned = await message.channel.pins() # Get all pinned message IDs
+        for msg in pinned: await msg.unpin() # Then get rid of them
         pinmsg = await message.channel.send("### Narrative Card\n{}".format(jarvis.flip(narrative = True)))
         await pinmsg.pin()
 
@@ -80,6 +78,7 @@ async def on_message(message):
     elif action == ".gm": await message.channel.send("GM's hand:\n{}".format(jarvis.showhand()))
 
     elif action == '.debug': await message.channel.send(jarvis.debug())
+              #Lists everyone's cards. For debug purposes only. Disable before real games if you like.
 
     elif action == '.gameover':
         await message.channel.send("Game over, man, game over!\nAll characters unassigned, all cards returned, deck shuffled.")
