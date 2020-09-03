@@ -14,9 +14,25 @@ drawn_cards = []
 discard = []
 
 def register(user, char):
-    chars.update({user:char})
-    hands.update({char:[]})
-    return "{} registered to {}.".format(char, user)
+    if user not in chars:
+        if char == "Narrative": x = "You can't be the Narrative card. Don't make this weird."
+        else:
+            chars.update({user:char})
+            hands.update({char:[]})
+            x = "{} registered to {}.".format(char, user)
+    else: x = "You already have a character. You can't have TWO characters. Release your hold on {} with the command .deregister".format(chars[user])
+    return x
+
+def deregister(user):
+    if user in chars:
+        x = "{} released. All cards returned.".format(chars[user])
+        if chars[user] != "GM":
+            for card in hands[chars[user]]:
+                drawn_cards.remove(card)
+            del hands[chars[user]]
+        del chars[user]
+    else: x = "You can't deregister. You aren't registered. What would be the point?"
+    return x
 
 def fromdeck():
     card = False
@@ -31,7 +47,7 @@ def draw(user, number = 1):
         x = fromdeck()
         drawn_cards.append(x)
         hands[chars[user]].append(x)
-    return "{} has drawn {} cards".format(chars[user], number)
+    return "{} has drawn {} card(s)".format(chars[user], number)
 
 def show(user, card):
     if (card in hands[chars[user]]):
@@ -41,6 +57,7 @@ def show(user, card):
 
 def play(user, card):
     doom = False
+    y = ""
     if (card in hands[chars[user]]):
         hands[chars[user]].remove(card)
         if deck.iloc[card]['Suit'] == "Doom" and chars[user] != "GM":
@@ -49,11 +66,15 @@ def play(user, card):
         else: drawn_cards.remove(card)
         x = "{} played \n{}.".format(chars[user], deck.iloc[card]['Link'])
         if doom:
-            x += "\n\n{} has played a Doom suit card!\nGM's new hand:\n`{}`".format(chars[user], deck.loc[hands["GM"]])
+            y = "\n\n{} has played a Doom suit card!\nGM's new hand:\n`{}`".format(chars[user], deck.loc[hands["GM"], "Value":"Calling"])
     else: x = "No such card."
-    return x
+    return x, y
 
 def reset():
+    global drawn_cards
+    global discard
+    global hands
+    global chars
     drawn_cards = []
     discard = []
     hands = {"GM":[], "Narrative":[]}
@@ -78,21 +99,16 @@ def lose(user, number=1):
         drawn_cards.remove(card)
         print("Lost card {}".format(card))
 
-def showhand(user):
+def showhand(user="GM"):
     #Text
-    return "`{}`".format(deck.loc[hands[chars[user]], "Value":"Calling"]) 
+    if user == "GM": return "`{}`".format(deck.loc[hands[user], "Value":"Calling"]) 
+    else: return "`{}`".format(deck.loc[hands[chars[user]], "Value":"Calling"])
     #Images
     #x = ""
     #for i in hands[chars[user]]:
     #    x += "{}\n".format(deck.iloc[i]['Link'])
+    #    return x
 
-def showhandimage(user):
-    #x = "Your hand, {}\n".format(users[user])
-    x = ""
-    for card in hands[chars[user]]:
-        x += "{} ".format(deck.iloc[card]['Link'])
-#    return "{}".format(deck.loc[hands[users[user]]]['Link'])
-    return x
 
 def handsizes():
     x = ""

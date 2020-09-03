@@ -39,11 +39,12 @@ async def on_message(message):
         await message.channel.send("Good morning, {}.".format(user))
 
     elif action == ".register" or action == ".r":
-        if len(command) > 1:
-            response = jarvis.register(user, " ".join(command[1:]))
-#            await message.author.change_nickname(" ".join(command[1:]))
+        if len(command) > 1: response = jarvis.register(user, " ".join(command[1:]))
+#                await message.author.change_nickname(" ".join(command[1:]))
         else: response = "Who did you wish to register?"
         await message.channel.send(response)
+
+    elif action == ".deregister": await message.channel.send(jarvis.deregister(user))
 
     elif action == ".draw" or action == ".d":
         if len(command) > 1:
@@ -54,10 +55,11 @@ async def on_message(message):
 
     elif action == ".play" or action == ".p":
         if len(command)>1:
-            response = jarvis.play(user, int(command[1]))
+            response, doom = jarvis.play(user, int(command[1]))
             await message.author.send(jarvis.showhand(user))
         else: response = "Which card did you wish to play?"
         await message.channel.send(response)
+        if doom is not "": await message.channel.send(doom)
 
     elif action == ".show" or action == ".s":
         if len(command)>1:
@@ -74,6 +76,8 @@ async def on_message(message):
         await pinmsg.pin()
 
     elif action == ".peek": await message.channel.send(jarvis.handsizes())
+
+    elif action == ".gm": await message.channel.send("GM's hand:\n{}".format(jarvis.showhand()))
 
     elif action == '.debug': await message.channel.send(jarvis.debug())
 
