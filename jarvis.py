@@ -8,12 +8,14 @@ Created on Wed Sep  2 18:29:13 2020
 import random
 import pandas as pd
 
-players = {"GM":[],}
+hands = {"GM":[],} #registers cards to  a character
+users = {} #registers user to a character
 drawn_cards = []
 
-def register(name): 
-    players.update({name:[]})
-    return "{} registered.".format(name)
+def register(user, char): 
+    users.update({user:char})
+    hands.update({char:[]})
+    return "{} registered to {}.".format(char, user)
 
 def fromdeck():
     card = False
@@ -22,30 +24,31 @@ def fromdeck():
         if (x not in drawn_cards): card = x
     return card
 
-def draw(hand, number = 1):
-    initial = len(players[hand])
-    while len(players[hand]) < (initial + number):
+def draw(user, number = 1):
+    initial = len(hands[users[user]])
+    while len(hands[users[user]]) < (initial + number):
         x = fromdeck()
         drawn_cards.append(x)
-        players[hand].append(x)
-    print("{} cards drawn".format(number))
+        hands[users[user]].append(x)
+    return "{} has drawn {} cards".format(users[user], number)
 
 def show(hand): print(str(hand))
 
-def play(hand, card):
+def play(user, card):
     doom = False
-    if (card in players[hand]):
-        players[hand].remove(card)
-        if deck.iloc[card]['Suit'] == "Doom" and hand != "GM": 
-            players["GM"].append(card)
+    if (card in hands[users[user]]):
+        hands[users[user]].remove(card)
+        if deck.iloc[card]['Suit'] == "Doom" and users[user] != "GM":
+            hands["GM"].append(card)
             doom = True
         else: drawn_cards.remove(card)
-        print("{} played \n{}.".format(hand, deck.loc[[card]])) 
-        if doom: 
-            print("\nA player has spent a Doom suit card!")
-            showhand("GM")
-    else: print("No such card.")
-    
+        x = "{} played \n`{}`.".format(users[user], deck.loc[[card]])
+        if doom:
+            x += "\n\nA player has spent a Doom suit card!\nGM's new hand:\n`{}`".format(deck.loc[hands["GM"]])
+            #showhand("GM")
+    else: x = "No such card."
+    return x
+
 def reset(): 
     drawn_cards = []
     players = {"GM":[],}
@@ -59,9 +62,8 @@ def lose(hand, number=1):
         drawn_cards.remove(card)
         print("Lost card {}".format(card))
 
-def showhand(hand):
-    print("{}'s hand:".format(hand))
-    print(deck.loc[players[hand]])
+def showhand(user):
+    return "`{}`".format(deck.loc[hands[users[user]]])
     
 def handsizes():
     for key in players: 

@@ -29,15 +29,30 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
-    
+    user = message.author.name
     command = message.content.split(" ")
     action = command[0]
     if action == "Morning.":
-        await message.channel.send("Good morning, sir.")
+        await message.channel.send("Good morning, {}.".format(user))
+
     elif action == ".register" or action == ".r":
-        if len(command) > 1: 
-            response = jarvis.register(command[1])
-            await message.channel.send(response)
-    
+        if len(command) > 1:
+            response = jarvis.register(user, command[1])
+        else: response = "Who did you wish to register?"
+        await message.channel.send(response)
+
+    elif action == ".draw" or action == ".d":
+        if len(command) > 1:
+            response = jarvis.draw(user, int(command[1]))
+        else: response = jarvis.draw(user)
+        await message.channel.send(response)
+        await message.author.send(jarvis.showhand(user))
+
+    elif action == ".play" or action == ".p":
+        if len(command)>1:
+            response = jarvis.play(user, int(command[1]))
+            await message.author.send(jarvis.showhand(user))
+        else: response = "Which card did you wish to play?"
+        await message.channel.send(response)
 
 client.run(TOKEN)
