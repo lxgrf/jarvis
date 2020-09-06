@@ -13,7 +13,8 @@ deck.index.name = 'Card'
 
 cards = {*range(len(deck))}
 hands = {"GM":set(), "Narrative":set()} #registers cards to  a character
-chars = {} #registers user to a character
+chars = dict() #registers user to a character
+boosts = dict()
 
 def register(user, char):
     if user not in chars:
@@ -21,6 +22,7 @@ def register(user, char):
         else:
             chars.update({user:char})
             hands.update({char:set()})
+            boosts.update({user:0})
             x = "{} registered to {}.".format(char, user)
     else: x = "You already have a character. You can't have TWO characters. Release your hold on {} with the command .deregister".format(chars[user])
     return x
@@ -30,7 +32,22 @@ def deregister(user):
         x = "{} released. All cards returned.".format(chars[user])
         if chars[user] != "GM": del hands[chars[user]]
         del chars[user]
+        del boosts[user]
     else: x = "You can't deregister. You aren't registered. What would be the point?"
+    return x
+
+def boost(user, target = None):
+    if chars[user] == "GM":
+        if target is not None and target in boosts:
+            boosts[target] += 1
+            x = "Token assigned to {}, who now has {}.".format(chars[target], boosts[target])
+        else: x = "Who do you want to assign a token to?"
+    elif user in boosts:
+        if boosts[user] > 0:
+            boosts[user] -= 1
+            x = "{a} played a token! {a} has {b} tokens remaining.".format(a = chars[user], b = boosts[user])
+        else: x = "You have no tokens to play!"
+    else: x = "Please register a character with .register <name>"
     return x
 
 def fromdeck():
@@ -69,8 +86,9 @@ def play(user, card):
 def reset(): #There's a better way to do this. Involving classes. Look into that.
     global hands
     global chars
+    global boost
     hands = {"GM":set(), "Narrative":set()}
-    chars = {}
+    chars, boosts = dict(), dict()
     print("Reset!")
 
 def flip(narrative = False):
@@ -89,9 +107,13 @@ def lose(user, number=1):
 def showhand(user="GM"):
     #Text
     if user == "GM": 
-        return "`{}`".format(deck.loc[hands[user], "Value":"Calling"]) 
-    else: 
-        return "`{}`".format(deck.loc[hands[chars[user]], "Value":"Calling"])
+        x = "`{}`".format(deck.loc[hands[user], "Value":"Calling"]) 
+    else:
+        x = "`{}`".format(deck.loc[hands[chars[user]], "Value":"Calling"])
+        if boosts[user]>0:
+            x += "\nBoost Tokens: "
+            for _ in range(boosts[user]): x+= ":zap:"
+    return x
     #Images
     #x = ""
     #for i in hands[chars[user]]:
@@ -103,9 +125,13 @@ def handsizes():
     for key in hands:
         if len(hands[key])==0: x+= "{} has no cards.\n".format(key)
         else: x += "{}'s hand size: {}\n".format(key, len(hands[key]))
+    for key in boosts: x+= "{} has {} tokens.".format(chars[key], boosts[key])
     return x
 
 def debug():
     x = ""
-    for key in hands: x+= "{} has {}\n".format(key, hands[key])
+    for key in hands:
+        x+= "{} has {}\n".format(key, hands[key])
+    for key in boosts:
+        x+= "{} has {} tokens\n".format(chars[key], boosts[key])
     return x

@@ -65,13 +65,19 @@ async def on_message(message):
         else: response = "Which card did you wish to show?"
         await message.channel.send(response)
 
-    elif action == ".flip" or action == ".f": await message.channel.send(jarvis.flip())
+    elif action == ".flip" or action == ".f": 
+        await message.channel.send("Random card from deck\n{}".format(jarvis.flip()))
 
     elif action == ".narrative" or action == ".n":
         pinned = await message.channel.pins() # Get all pinned message IDs
         for msg in pinned: await msg.unpin() # Then get rid of them
         pinmsg = await message.channel.send("### Narrative Card\n{}".format(jarvis.flip(narrative = True)))
         await pinmsg.pin()
+
+    elif action == ".boost" or action == ".brain" or action == ".b":
+        if len(command)>1: response = jarvis.boost(user, command[1])
+        else: response = jarvis.boost(user)
+        await message.channel.send(response)
 
     elif action == ".peek": await message.channel.send(jarvis.handsizes())
 
