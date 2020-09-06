@@ -146,7 +146,11 @@ def handimage(user):
     print(held)
     print(files)
     images = [Image.open(x) for x in files]
+    widths, heights = zip(*(i.size for i in images))
+    max_height = max(heights)
+    total_width = sum(widths)
     x_offset = 0
+    new_im = Image.new('RGB', (total_width, max_height))
     for im in images:
         new_im.paste(im, (x_offset, 0))
         x_offset += im.size[0]
