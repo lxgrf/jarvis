@@ -92,4 +92,6 @@ async def on_message(message):
         pinned = await message.channel.pins()
         for msg in pinned: await msg.unpin()
 
+    elif action == '.test': await message.author.send_file(handimage(user))
+
 client.run(TOKEN)

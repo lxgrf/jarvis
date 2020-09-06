@@ -7,6 +7,7 @@ Created on Wed Sep  2 18:29:13 2020
 
 import random
 import pandas as pd
+from PIL import Image
 
 deck = pd.read_csv('deck.csv')
 deck.index.name = 'Card'
@@ -106,10 +107,12 @@ def lose(user, number=1):
 
 def showhand(user="GM"):
     #Text
+    x = ""
     if user == "GM": 
         x = "`{}`".format(deck.loc[hands[user], "Value":"Calling"]) 
     else:
-        x = "`{}`".format(deck.loc[hands[chars[user]], "Value":"Calling"])
+#        x = "`{}`".format(deck.loc[hands[chars[user]], "Value":"Calling"])
+        for i in hands[chars[user]]: x += "{} ".format(deck.iloc[i]['Link'])
         if boosts[user]>0:
             x += "\nBoost Tokens: "
             for _ in range(boosts[user]): x+= ":zap:"
@@ -134,4 +137,19 @@ def debug():
         x+= "{} has {}\n".format(key, hands[key])
     for key in boosts:
         x+= "{} has {} tokens\n".format(chars[key], boosts[key])
+    return x
+
+def handimage(user):
+    held = sorted(hands[chars[user]])
+    files = []
+    for card in held: files.append("cards/ncard_{}.jpg".format(card))
+    print(held)
+    print(files)
+    images = [Image.open(x) for x in files]
+    x_offset = 0
+    for im in images:
+        new_im.paste(im, (x_offset, 0))
+        x_offset += im.size[0]
+    x = '{}_hand.jpg'.format(user)
+    new_im.save(x)
     return x
