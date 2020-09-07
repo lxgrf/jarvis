@@ -21,8 +21,9 @@ def register(user, char):
     if user not in chars:
         if char == "Narrative": x = "You can't be the Narrative card. Don't make this weird."
         else:
+            if char.upper() == "GM": char = "GM"
             chars.update({user:char})
-            hands.update({char:set()})
+            if char != "GM": hands.update({char:set()})
             boosts.update({user:0})
             x = "{} registered to {}.".format(char, user)
     else: x = "You already have a character. You can't have TWO characters. Release your hold on {} with the command .deregister".format(chars[user])
@@ -72,56 +73,38 @@ def show(user, card):
 
 def play(user, card):
     doom = False
-    y = ""
     if (card in hands[chars[user]]):
         hands[chars[user]].remove(card)
         if deck.iloc[card]['Suit'] == "Doom" and chars[user] != "GM":
             hands["GM"].add(card)
             doom = True
         x = "{} played \n{}.".format(chars[user], deck.iloc[card]['Link'])
-        if doom:
-            y = "\n\n{} has played a Doom suit card!\nGM's new hand:\n`{}`".format(chars[user], deck.loc[hands["GM"], "Value":"Calling"])
     else: x = "No such card."
-    return x, y
+    return x, doom
 
 def reset(): #There's a better way to do this. Involving classes. Look into that.
     global hands
     global chars
-    global boost
+    global boosts
     hands = {"GM":set(), "Narrative":set()}
     chars, boosts = dict(), dict()
     print("Reset!")
 
-def flip(narrative = False):
+def flip(user, narrative = False):
     new = fromdeck()
-    if narrative:
+    y = False
+    if narrative and chars[user] == "GM":
         hands["Narrative"].clear()
         hands["Narrative"].add(new)
-    return deck.iloc[new]['Link']
+        y = True
+    x = deck.iloc[new]['Link']
+    return x, y
 
 def lose(user, number=1):
     for _ in range(number):
         card = random.choice(hands[chars[user]])
         hands[chars[user]].remove(card)
         print("Lost card {}".format(card))
-
-def showhand(user="GM"):
-    #Text
-    x = ""
-    if user == "GM": 
-        x = "`{}`".format(deck.loc[hands[user], "Value":"Calling"]) 
-    else:
-#        x = "`{}`".format(deck.loc[hands[chars[user]], "Value":"Calling"])
-        for i in hands[chars[user]]: x += "{} ".format(deck.iloc[i]['Link'])
-        if boosts[user]>0:
-            x += "\nBoost Tokens: "
-            for _ in range(boosts[user]): x+= ":zap:"
-    return x
-    #Images
-    #x = ""
-    #for i in hands[chars[user]]:
-    #    x += "{}\n".format(deck.iloc[i]['Link'])
-    #    return x
 
 def handsizes():
     x = ""
@@ -139,21 +122,26 @@ def debug():
         x+= "{} has {} tokens\n".format(chars[key], boosts[key])
     return x
 
-def handimage(user):
-    held = sorted(hands[chars[user]])
+def handimage(user, gmrequest = False):
+    if user in chars: y = (chars[user] == "GM" or gmrequest)
+    else: y = gmrequest 
+    z = ""
+    if gmrequest: held = sorted(hands["GM"])
+    else: held = sorted(hands[chars[user]])
     files = []
-    for card in held: files.append("cards/ncard_{}.jpg".format(card))
-    print(held)
-    print(files)
-    images = [Image.open(x) for x in files]
-    widths, heights = zip(*(i.size for i in images))
-    max_height = max(heights)
-    total_width = sum(widths)
-    x_offset = 0
-    new_im = Image.new('RGB', (total_width, max_height))
-    for im in images:
-        new_im.paste(im, (x_offset, 0))
-        x_offset += im.size[0]
-    x = '{}_hand.jpg'.format(user)
-    new_im.save(x)
-    return x
+    if len(held)>0:
+        for card in held: files.append("cards/ncard_{}.jpg".format(card))
+        images = [Image.open(x) for x in files]
+        widths, heights = zip(*(i.size for i in images))
+        max_height = max(heights)
+        total_width = sum(widths)
+        x_offset = 0
+        new_im = Image.new('RGB', (total_width, max_height))
+        for im in images:
+            new_im.paste(im, (x_offset, 0))
+            x_offset += im.size[0]
+        x = 'hands/{}_hand.jpg'.format(user)
+        new_im.save(x)
+    else: x = False
+    for _ in range(boosts[user]): z += ":zap:"
+    return x, y, z
