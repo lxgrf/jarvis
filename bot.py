@@ -17,15 +17,16 @@ GUILD = os.getenv('DISCORD_GUILD')
 client = discord.Client()
 valid_channels = ["general", "test"]
 
-async def hand(message, user, gmrequest = False):
-    imagefile, GM, zaps = jarvis.handimage(user, gmrequest)
-    if GM: 
-        title = "GM's Hand"
-        description = ""
-    else: 
-        title = "Your Hand"
-        description = "Card index numbers are in the bottom left of each card. Tokens: {}".format(zaps)
+async def hand(message, user):
+    imagefile, GM, zaps = jarvis.handimage(user)
     if imagefile:
+        if GM: 
+            title = "GM's Hand"
+            description = ""
+        else: 
+            title = "Your Hand"
+            description = "Card index numbers are in the bottom left of each card."
+            if len(zaps)>0: description += "\nTokens: {}".format(zaps)
         embed = discord.Embed(title=title, description=description, color=0x0ff00)
         file = discord.File(imagefile, filename = "image.jpg")
         embed.set_image(url="attachment://image.jpg")
@@ -76,7 +77,7 @@ async def on_message(message):
         await hand(message, user)
         if doom: 
             await message.channel.send("A doom card has been played!")
-            await hand(message, user, gmrequest = True)
+            await hand(message, user="GM")
 
     elif action == ".show" or action == ".s":
         if len(command)>1: response = jarvis.show(user, int(command[1]))
@@ -104,8 +105,7 @@ async def on_message(message):
 
     elif action == ".peek": await message.channel.send(jarvis.handsizes())
 
-    elif action == ".gm": 
-        await hand(message, user, gmrequest = True)
+    elif action == ".gm": await hand(message, user="GM")
 
 #    elif action == '.debug': await message.channel.send(jarvis.debug())
               #Lists everyone's cards. For debug purposes only. Disable before real games if you like.

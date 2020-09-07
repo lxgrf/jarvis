@@ -122,26 +122,28 @@ def debug():
         x+= "{} has {} tokens\n".format(chars[key], boosts[key])
     return x
 
-def handimage(user, gmrequest = False):
-    if user in chars: y = (chars[user] == "GM" or gmrequest)
-    else: y = gmrequest 
-    z = ""
-    if gmrequest: held = sorted(hands["GM"])
+def handimage(user):
+    gm = False
+    if user == "GM": gm = True
+    if user in chars: gm = (chars[user] == "GM")
+    if gm: held = sorted(hands["GM"])
     else: held = sorted(hands[chars[user]])
     files = []
     if len(held)>0:
-        for card in held: files.append("cards/ncard_{}.jpg".format(card))
-        images = [Image.open(x) for x in files]
-        widths, heights = zip(*(i.size for i in images))
-        max_height = max(heights)
-        total_width = sum(widths)
+        for card in held: files.append("cards/ncard_{}.jpg".format(card)) #Get relevant image files
+        images = [Image.open(x) for x in files] #Open all files
+        widths, heights = zip(*(i.size for i in images)) #Get all file widths and heights
+        max_height = max(heights) #Find heighest height
+        total_width = sum(widths) #Find total width
         x_offset = 0
-        new_im = Image.new('RGB', (total_width, max_height))
+        new_im = Image.new('RGB', (total_width, max_height)) #Create new image based on calculated dimensions
         for im in images:
-            new_im.paste(im, (x_offset, 0))
-            x_offset += im.size[0]
-        x = 'hands/{}_hand.jpg'.format(user)
-        new_im.save(x)
-    else: x = False
-    for _ in range(boosts[user]): z += ":zap:"
-    return x, y, z
+            new_im.paste(im, (x_offset, 0)) 
+            x_offset += im.size[0] #Paste images in, reset starting point to cumulative x position
+        file = 'hands/{}_hand.jpg'.format(user) #Name for user 
+        new_im.save(file) #and save
+    else: file = False #
+    zaps = ""
+    if user in boosts: 
+        for _ in range(boosts[user]): zaps += ":zap:"
+    return file, gm, zaps
