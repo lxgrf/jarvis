@@ -7,6 +7,7 @@ Note that the bot will only respond to requests on channels listed in the valid_
 
 
 **BOT COMMANDS**
+
 You can register a character to yourself with `.register <Character name>`.
 
 You can draw cards to your hand with `.draw <number>`. The bot will message you in private with your cards. If you don't specify a number it defaults to 1.
