@@ -92,13 +92,18 @@ def reset(): #There's a better way to do this. Involving classes. Look into that
 
 def flip(user, narrative = False):
     new = fromdeck()
-    y = False
+    y, doom = False, False
     if narrative and chars[user] == "GM":
+        if len(hands["Narrative"]) > 0: 
+            oldcard = hands["Narrative"].pop()
+            if deck.iloc[oldcard]['Suit'] == "Doom":
+                hands["GM"].add(oldcard)
+                doom = True
         hands["Narrative"].clear()
         hands["Narrative"].add(new)
         y = True
     x = deck.iloc[new]['Link']
-    return x, y
+    return x, y, doom
 
 def lose(user, number=1):
     for _ in range(number):
@@ -111,7 +116,7 @@ def handsizes():
     for key in hands:
         if len(hands[key])==0: x+= "{} has no cards.\n".format(key)
         else: x += "{}'s hand size: {}\n".format(key, len(hands[key]))
-    for key in boosts: x+= "{} has {} tokens.".format(chars[key], boosts[key])
+    for key in boosts: x+= "{} has {} tokens.\n".format(chars[key], boosts[key])
     return x
 
 def debug():

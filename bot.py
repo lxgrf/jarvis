@@ -90,12 +90,13 @@ async def on_message(message):
     elif action == ".narrative" or action == ".n":
         pinned = await message.channel.pins() # Get all pinned message IDs
         for msg in pinned: await msg.unpin() # Then get rid of them
-        x, y = jarvis.flip(user, narrative = True)
+        x, y, doom = jarvis.flip(user, narrative = True)
         if y:
             pinned = await message.channel.pins()
             for msg in pinned: await msg.unpin()
             pinmsg = await message.channel.send("### Narrative Card\n{}".format(x))
             await pinmsg.pin()
+            if doom: await hand(message, user="GM")
         else: await message.channel.send("Only the GM may draw a Narrative card.")
 
     elif action == ".boost" or action == ".brain" or action == ".b":
@@ -111,9 +112,13 @@ async def on_message(message):
               #Lists everyone's cards. For debug purposes only. Disable before real games if you like.
 
     elif action == '.gameover':
-        await message.channel.send("Game over, man, game over!\nAll characters unassigned, all cards returned, deck shuffled.")
+#        await message.channel.send("Game over, man, game over!\nAll characters unassigned, all cards returned, deck shuffled.")
         jarvis.reset()
         pinned = await message.channel.pins()
         for msg in pinned: await msg.unpin()
+        embed = discord.Embed(title="Game over", description="All characters unassigned, all cards returned, deck shuffled", color=0x0ff00)
+        file = discord.File('snap.gif', filename = "snap.gif")
+        embed.set_image(url="attachment://snap.gif")
+        await message.channel.send(file=file, embed=embed)
 
 client.run(TOKEN)
