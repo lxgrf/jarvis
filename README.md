@@ -1,7 +1,7 @@
 # Jarvis
 _A Discord.py bot for Marvel SAGA rpg system_
 
-Store DISCORD_TOKEN and DISCORD_GUILD in a .env file in the root folder, and you're good to go.
+Store DISCORD_TOKEN in a .env file in the root folder, and you're good to go.
 
 Note that the bot will only respond to requests on channels listed in the valid_channels list in bot.py. It will otherwise respond with a polite refusal.
 
