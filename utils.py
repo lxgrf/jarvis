@@ -34,6 +34,30 @@ def available(table):
     x = cards - drawn
     return x
 
+def register(server, user, character): 
+    table = retrieve(server)
+    if character == 'Narrative': return "You can't be the Narrative card. Don't be weird."
+    if user in table['characters']: return "You are already registered. Unregister first."
+    if character in table['characters'].values(): return "Character already registered."
+    else:
+        if character.upper() == "GM": character = "GM"
+        table['characters'].update({user:character})
+        table['hands'].update({character:set()})
+        table['tokens'].update({character:0})
+        dump(server, table)
+        return "{} registered to {}".format(character, user)
+
+def deregister(server, user):
+    table = retrieve(server)
+    if user in table['characters']:
+        character = table['characters'][user]
+        del table['characters'][user]
+        del table['hands'][character]
+        if "GM" not in table['hands']: table['hands'].update({"GM":set()})
+        dump(server, table)
+        return "{} deregistered.".format(character)
+    else: return "You cannot deregister. You are not registered."
+
 def boost(server, user, target=False):
     table = retrieve(server)
     if table['characters'][user] == "GM":
@@ -94,30 +118,15 @@ def narrative(server, user):
     table['hands']['Narrative'].add(card)
     dump(server, table)
     return link, doom
-
-def register(server, user, character): 
+    
+def peek(server):
     table = retrieve(server)
-    if character == 'Narrative': return "You can't be the Narrative card. Don't be weird."
-    if user in table['characters']: return "You are already registered. Unregister first."
-    if character in table['characters'].values(): return "Character already registered."
-    else:
-        if character.upper() == "GM": character = "GM"
-        table['characters'].update({user:character})
-        table['hands'].update({character:set()})
-        table['tokens'].update({character:0})
-        dump(server, table)
-        return "{} registered to {}".format(character, user)
-
-def deregister(server, user):
-    table = retrieve(server)
-    if user in table['characters']:
-        character = table['characters'][user]
-        del table['characters'][user]
-        del table['hands'][character]
-        if "GM" not in table['hands']: table['hands'].update({"GM":set()})
-        dump(server, table)
-        return "{} deregistered.".format(character)
-    else: return "You cannot deregister. You are not registered."
+    msg = ""
+    for key in table['hands']:
+        if len(table['hands'][key])==0: msg += "{} has no cards.\n".format(key)
+        else: msg += "{}'s hand size: {}\n".format(key, len(table['hands'][key]))
+    for key in table['tokens']: msg += "{} has {} tokens.\n".format(key, table['tokens'][key])
+    return msg
 
 def handimage(server, user):
     table = retrieve(server)
