@@ -8,7 +8,7 @@ Created on Wed Sep  9 20:42:58 2020
 import os
 import discord
 from dotenv import load_dotenv
-from utils import draw, register, deregister, handimage, play, flip, narrative, boost, peek
+from utils import draw, register, deregister, handimage, play, flip, narrative, boost, peek, suitplay
 import pickle
 
 load_dotenv()
@@ -36,6 +36,12 @@ async def hand(server, message, user):
         if GM: await message.channel.send(file=file, embed=embed)
         else: await message.author.send(file=file, embed=embed)
 
+async def sendimg(message, title, description, image):
+        embed = discord.Embed(title=title, description = description, color=0x0ff00)
+        file = discord.File(image, filename = "image.jpg")
+        embed.set_image(url="attachment://image.jpg")
+        await message.channel.send(file=file, embed=embed)
+        
 @client.event
 async def on_ready():
     guild = discord.utils.get(client.guilds)
@@ -71,16 +77,37 @@ async def on_message(message):
         
     elif action == ".deregister": await message.channel.send(deregister(server, user))
     
-    elif action in [".play", ".p"]:
-        try: msg, doom = play(server, user, int(command[1]))
-        except: 
-            msg = "Which card do you wish to play?"
+#    elif action in [".play", ".p"]:
+#        try: 
+#            msg, doom = play(server, user, int(command[1]))
+#        except: 
+#            msg = "Which card do you wish to play?"
+#            doom = False
+#        await message.channel.send(msg)
+#        await hand(server, message, user)
+#        if doom: 
+#            await message.channel.send("A doom card has been played!")
+#            await hand(server, message, user="GM")
+    
+    elif action in [".agility", ".a", ".ag", ".agi", ".strength", ".st", ".str", ".s", ".intellect", ".int", ".i", ".willpower", ".will", ".wi", ".w", ".play", ".p", ".pl"]:
+        suit = action[1]
+        cards = command[1:]
+        try: 
+            title, description, image, doom = suitplay(server, user, suit, cards)
+            if not title: await message.channel.send(description)
+            else: await sendimg(message, title, description, image)
+        except:
+            await message.channel.send("Which card did you wish to play?")
             doom = False
-        await message.channel.send(msg)
         await hand(server, message, user)
-        if doom: 
+        if doom:
             await message.channel.send("A doom card has been played!")
             await hand(server, message, user="GM")
+            
+    elif action == ".debugtrump": 
+        suit = "w"
+        cards = command[1:]
+        print(suitplay(server, user, suit, cards))
     
     elif action in [".flip", ".f"]: await message.channel.send("**Random card from deck**\n{}".format(flip(server)))
     
@@ -93,8 +120,8 @@ async def on_message(message):
                 if msg.author == client.user: await msg.unpin()
             pinmsg = await message.channel.send("***Narrative Card***\n{}".format(card))
             await pinmsg.pin()
-            if doom:
-                await hand(server, message, user="GM")
+#            if doom:
+#                await hand(server, message, user="GM")
                 
     elif action in [".boost", ".b"]:
         try: msg = boost(server, user, command[1])
@@ -123,6 +150,6 @@ async def on_message(message):
         with open("gamestates/{}".format(server), 'wb') as f: pickle.dump(blank, f)
         
     elif action in [".help", ".h"]:
-        await message.channel.send("`.register <Character name>`: Register a character to yourself. Abbreviates to `.r`\n`.draw <number>`: Draw cards to your hand. The bot will message you in private with your cards. Defaults to 1. Abbreviates to `.d`\n`.play <index>`: play a card, where index is the card index, which you'll find in the bottom left of each card. Abbreviates to `.p`\n`.show <index>`: _Show_ a card without playing it. Abbreviates to `.s`\n`.flip`: You can flip a card from the deck at random. The card is immediately returned to the deck. Abbreviates to `.f`\n`.peek`: Peek at everyone's hand sizes and token counts.  \n`.boost`: Play a token. If you have tokens, they'll be listed in your hand. Abbreviates to `.b`.\n`.deregister`: Release a character. Folds the character's hand back into the deck. Abbreviates to `.d`\n`.gm`: Remind yourself of the GM's hand (which is face up).\n\n`.gameover`: Put the game back in the box. Deregisters all characters, and shuffles all cards back into the deck.\n\nGM Specific commands:\n`.narrative`: Draw a new narrative card. The current narrative card will be pinned to the channel. Abbreviates to `.n`\n`.boost <username>`: Award a player a boost token. Abbreviates to `.b`")
+        await message.channel.send("`.register <Character name>`: Register a character to yourself. Abbreviates to `.r`\n`.draw <number>`: Draw cards to your hand. The bot will message you in private with your cards. Defaults to 1. Abbreviates to `.d`\n`.play <index>`: play a card, where index is the card index, which you'll find in the bottom left of each card. Abbreviates to `.p`\n`.intellect`, `.strength`, `.agility`, `.willpower <card>`: Plays the stated cards as a card of that trump suit, and continues drawing until no longer trump. Abbreviates to any reasonable shortening.\n`.show <index>`: _Show_ a card without playing it. Abbreviates to `.s`\n`.flip`: You can flip a card from the deck at random. The card is immediately returned to the deck. Abbreviates to `.f`\n`.peek`: Peek at everyone's hand sizes and token counts.  \n`.boost`: Play a token. If you have tokens, they'll be listed in your hand. Abbreviates to `.b`.\n`.deregister`: Release a character. Folds the character's hand back into the deck. Abbreviates to `.d`\n`.gm`: Remind yourself of the GM's hand (which is face up).\n\n`.gameover`: Put the game back in the box. Deregisters all characters, and shuffles all cards back into the deck.\n\nGM Specific commands:\n`.narrative`: Draw a new narrative card. The current narrative card will be pinned to the channel. Abbreviates to `.n`\n`.boost <username>`: Award a player a boost token. Abbreviates to `.b`")
     
 client.run(TOKEN)
