@@ -94,20 +94,15 @@ async def on_message(message):
         cards = command[1:]
         try: 
             title, description, image, doom = suitplay(server, user, suit, cards)
-            if not title: await message.channel.send(description)
-            else: await sendimg(message, title, description, image)
+            if not title: await message.channel.send(description) # Returns error messages from suitplay function
+            else: await sendimg(message, title, description, image) # Sends successful results
         except:
             await message.channel.send("Which card did you wish to play?")
             doom = False
-        await hand(server, message, user)
+        await hand(server, message, user) #Send updated hand details
         if doom:
             await message.channel.send("A doom card has been played!")
             await hand(server, message, user="GM")
-            
-    elif action == ".debugtrump": 
-        suit = "w"
-        cards = command[1:]
-        print(suitplay(server, user, suit, cards))
     
     elif action in [".flip", ".f"]: await message.channel.send("**Random card from deck**\n{}".format(flip(server)))
     

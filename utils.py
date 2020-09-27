@@ -14,7 +14,7 @@ deck = pd.read_csv('deck.csv')
 deck.index.name = 'Card'
 cards = {*range(len(deck))}
 
-suits = {"a":"Agility", "s":"Strength", "i":"Intellect", "w":"Willpower", "p":"Generic"}
+suits = {"a":"Agility", "s":"Strength", "i":"Intellect", "w":"Willpower", "p":"None"}
 
 def dump(server, table):
     file = "gamestates/{}".format(server)
@@ -143,7 +143,7 @@ def suitplay(server, user, suit, cards):
         file = imggen(user, cards, "played")
         title = "{} plays:".format(character)
         values = [deck.iloc[card]['Value'] for card in cards]
-        description = "Trump suit {}\nTotal value: {}".format(suit, sum(values))
+        description = "Trump suit: {}\nTotal value: {}".format(suit, sum(values))
         doom = False
         for card in played:
             if deck.iloc[card]['Suit'] == "Doom" and table['characters'][user] != "GM": 
