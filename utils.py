@@ -138,8 +138,7 @@ def suitplay(server, user, suit, cards):
         played = cards.copy()
     except: return False, "Please ensure your cards are listed in the format `1 2 3`, without letters or other symbols.", False, False
     if all(card in table["hands"][character] for card in cards): # Check that the character HAS all those cards
-        while deck.iloc[cards[-1]]['Suit'] == suit: 
-            cards.append(singlecard(table)[0]) # Keep adding cards while the suit matches
+        while deck.iloc[cards[-1]]['Suit'] == suit: cards.append(singlecard(table)[0]) # Keep adding cards while the suit matches
         file = imggen(user, cards, "played")
         title = "{} plays:".format(character)
         values = [deck.iloc[card]['Value'] for card in cards]
