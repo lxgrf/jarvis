@@ -135,20 +135,23 @@ def suitplay(server, user, suit, cards):
     else: return False, "Please register a character using `.register <name>`", False, False
     try: 
         cards = [int(card) for card in cards] # Convert all elements of 'cards' kwarg into integers
-        played = cards.copy()
+        played = cards.copy() # kept seperate because flipped cards don't go to GM's hand
     except: return False, "Please ensure your cards are listed in the format `1 2 3`, without letters or other symbols.", False, False
     if all(card in table["hands"][character] for card in cards): # Check that the character HAS all those cards
-        while deck.iloc[cards[-1]]['Suit'] == suit: cards.append(singlecard(table)[0]) # Keep adding cards while the suit matches
+        while deck.iloc[cards[-1]]['Suit'] == suit: 
+            a = singlecard(table)[0]
+            table['hands'][character].add(a) # Temporarily put the flipped cards in hand to prevent their being redrawn
+            cards.append(a) # Keep adding cards while the suit matches
         file = imggen(user, cards, "played")
         title = "{} plays:".format(character)
         values = [deck.iloc[card]['Value'] for card in cards]
         description = "Trump suit: {}\nTotal value: {}".format(suit, sum(values))
         doom = False
-        for card in played:
+        for card in played: # Note, only the initially played cards go to the GM's hand on Doom.
             if deck.iloc[card]['Suit'] == "Doom" and table['characters'][user] != "GM": 
                 table['hands']['GM'].add(card)
                 doom = True
-            table['hands'][character].remove(card)
+        for card in cards: table['hands'][character].remove(card) # Remove played cards and flipped cards from hand
         dump(server, table)
         return title, description, file, doom
     else: return False, "You do not hold all the cards you have tried to play.", False, False

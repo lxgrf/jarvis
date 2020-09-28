@@ -132,6 +132,12 @@ async def on_message(message):
     elif action == ".debug":
         with open("gamestates/{}".format(server), 'rb') as f: x = pickle.load(f)
         await message.channel.send(x)
+        
+#    elif action == ".debugt":
+#        suit = "i"
+#        cards = command[1:]
+#        title, description, image, doom = suitplay(server, user, suit, cards)
+#        await sendimg(message, title, description, image)
 
     elif action == '.gameover':
         pinned = await message.channel.pins()
