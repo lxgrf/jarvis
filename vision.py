@@ -90,7 +90,7 @@ async def on_message(message):
 #            await hand(server, message, user="GM")
     
 #    elif action in [".agility", ".a", ".ag", ".agi", ".strength", ".st", ".str", ".s", ".intellect", ".int", ".i", ".willpower", ".will", ".wi", ".w", ".play", ".p", ".pl"]:
-    elif (action[:1] in [".s",".a",".i",".w"]) or action in [".play", ".p", ".pl"]:
+    elif (action[:2] in [".s",".a",".i",".w"]) or action in [".play", ".p", ".pl"]:
         suit = action[1]
         cards = command[1:]
         try: 
