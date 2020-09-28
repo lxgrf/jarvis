@@ -3,6 +3,8 @@ _A Discord.py bot for Marvel SAGA rpg system_
 
 Store DISCORD_TOKEN in a .env file in the root folder, and you're good to go.
 
+Add bot to your servers: https://discord.com/oauth2/authorize?client_id=750740244630077471&scope=bot&permissions=52224 
+(Note - Jarvis is currently running from my Devbox, and is provided as is, without uptime guarantee. Feel free to use the code presented here to host your own version if you need.)
 
 
 ## Bot Commands
