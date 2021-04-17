@@ -14,7 +14,7 @@ deck = pd.read_csv('deck.csv')
 deck.index.name = 'Card'
 cards = {*range(len(deck))}
 
-suits = {"a":"Agility", "s":"Strength", "i":"Intellect", "w":"Willpower", "p":"None"}
+suits = {"a":"Agility", "s":"Strength", "i":"Intellect", "w":"Willpower", "p":"None", "l":"Damage"}
 
 def dump(server, table):
     file = "gamestates/{}".format(server)
@@ -105,9 +105,12 @@ def play(server, user, card):
 
 def flip(server):
     card, link = singlecard(retrieve(server))
-    # To go into DM's hand 
-    return link
- 
+    cards = list()
+    cards.append(card)
+    file = imggen("Random",cards,"flipped")
+    #return link
+    return file
+
 def narrative(server, user):
     table = retrieve(server)
     doom = False
@@ -129,8 +132,10 @@ def peek(server):
     return msg
 
 def suitplay(server, user, suit, cards):
+    # Establish variables
     table = retrieve(server)
     suit = suits[suit] # Expand full suit name
+    damage = (suit == "Damage")
     if user in table["characters"]: character = table["characters"][user]
     else: return False, "Please register a character using `.register <name>`", False, False
     try: 
@@ -148,7 +153,7 @@ def suitplay(server, user, suit, cards):
         description = "Trump suit: {}\nTotal value: {}".format(suit, sum(values))
         doom = False
         for card in played: # Note, only the initially played cards go to the GM's hand on Doom.
-            if deck.iloc[card]['Suit'] == "Doom" and table['characters'][user] != "GM": 
+            if deck.iloc[card]['Suit'] == "Doom" and table['characters'][user] != "GM" and not damage: 
                 table['hands']['GM'].add(card)
                 doom = True
         for card in cards: table['hands'][character].remove(card) # Remove played cards and flipped cards from hand

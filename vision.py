@@ -41,7 +41,7 @@ async def sendimg(message, title, description, image):
         file = discord.File(image, filename = "image.jpg")
         embed.set_image(url="attachment://image.jpg")
         await message.channel.send(file=file, embed=embed)
-        
+
 @client.event
 async def on_ready():
     guild = discord.utils.get(client.guilds)
@@ -65,13 +65,13 @@ async def on_message(message):
     command = message.content.split(" ")
     action = command[0] # Extract first word to check against commands
 
-    if action in [".draw", ".d", ".dr"]:
+    if action in (".draw", ".d", ".dr"):
         try: msg = draw(server, user, int(command[1]))
         except: msg = draw(server, user)
         await message.channel.send(msg)
         await hand(server, message, user)
     
-    elif action in [".register", ".r", ".reg"]:
+    elif action in (".register", ".r", ".reg"):
         if len(command)<2: await message.channel.send("Register what?")
         else: await message.channel.send(register(server, user, " ".join(command[1:])))
         
@@ -90,7 +90,8 @@ async def on_message(message):
 #            await hand(server, message, user="GM")
     
 #    elif action in [".agility", ".a", ".ag", ".agi", ".strength", ".st", ".str", ".s", ".intellect", ".int", ".i", ".willpower", ".will", ".wi", ".w", ".play", ".p", ".pl"]:
-    elif (action[:2] in [".s",".a",".i",".w"]) or action in [".play", ".p", ".pl"]:
+
+    elif (action[:2] in (".s",".a",".i",".w",".l")) or action in (".play", ".p", ".pl"):
         suit = action[1]
         cards = command[1:]
         try: 
@@ -105,30 +106,36 @@ async def on_message(message):
             await message.channel.send("A doom card has been played!")
             await hand(server, message, user="GM")
     
-    elif action in [".flip", ".f"]: await message.channel.send("**Random card from deck**\n{}".format(flip(server)))
-    
-    elif action in [".narrative", ".n"]:
+    elif action in (".flip", ".f"):
+        #await message.channel.send("**Random card from deck**\n{}".format(flip(server)))
+        await sendimg(message, "Flipped card", "Flipped card", flip(server))
+
+    elif action in (".narrative", ".n"):
         card, doom = narrative(server, user)
         if card == False: await message.channel.send("Only the GM may draw Narrative cards.")
         else:
             pinned = await message.channel.pins()
             for msg in pinned: 
                 if msg.author == client.user: await msg.unpin()
-            pinmsg = await message.channel.send("***Narrative Card***\n{}".format(card))
+            #pinmsg = await message.channel.send("***Narrative Card***\n{}".format(card))
+            embed = discord.Embed(title="Narrative Card", description = "Narrative Card", color=0x0ff00)
+            file = discord.File(flip(server), filename='image.jpg')
+            embed.set_image(url='attachment://image.jpg')
+            pinmsg = await message.channel.send(file=file, embed=embed)
             await pinmsg.pin()
 #            if doom:
 #                await hand(server, message, user="GM")
-                
-    elif action in [".boost", ".b"]:
+
+    elif action in (".boost", ".b"):
         try: msg = boost(server, user, command[1])
         except: msg = boost(server, user)
         await message.channel.send(msg)
-            
-    elif action in [".peek", ".pk"]:
+
+    elif action in (".peek", ".pk"):
         await message.channel.send(peek(server))
-        
+
     elif action == ".gm": await hand(server, message, user="GM")
-        
+
     elif action == ".debug":
         with open("gamestates/{}".format(server), 'rb') as f: x = pickle.load(f)
         await message.channel.send(x)
@@ -151,7 +158,7 @@ async def on_message(message):
         if os.path.exists(tablestate): os.remove(tablestate)
         with open("gamestates/{}".format(server), 'wb') as f: pickle.dump(blank, f)
         
-    elif action in [".help", ".h"]:
-        await message.channel.send("`.register <Character name>`: Register a character to yourself. Abbreviates to `.r`\n`.draw <number>`: Draw cards to your hand. The bot will message you in private with your cards. Defaults to 1. Abbreviates to `.d`\n`.play <index>`: play a card, where index is the card index, which you'll find in the bottom left of each card. Abbreviates to `.p`\n`.intellect`, `.strength`, `.agility`, `.willpower <card>`: Plays the stated cards as a card of that trump suit, and continues drawing until no longer trump. Abbreviates to any reasonable shortening.\n`.show <index>`: _Show_ a card without playing it. Abbreviates to `.s`\n`.flip`: You can flip a card from the deck at random. The card is immediately returned to the deck. Abbreviates to `.f`\n`.peek`: Peek at everyone's hand sizes and token counts.  \n`.boost`: Play a token. If you have tokens, they'll be listed in your hand. Abbreviates to `.b`.\n`.deregister`: Release a character. Folds the character's hand back into the deck. Abbreviates to `.d`\n`.gm`: Remind yourself of the GM's hand (which is face up).\n\n`.gameover`: Put the game back in the box. Deregisters all characters, and shuffles all cards back into the deck.\n\nGM Specific commands:\n`.narrative`: Draw a new narrative card. The current narrative card will be pinned to the channel. Abbreviates to `.n`\n`.boost <username>`: Award a player a boost token. Abbreviates to `.b`")
+    elif action in (".help", ".h"):
+        await message.channel.send("`.register <Character name>`: Register a character to yourself. Abbreviates to `.r`\n`.draw <number>`: Draw cards to your hand. The bot will message you in private with your cards. Defaults to 1. Abbreviates to `.d`\n`.play <index>`: play a card, where index is the card index, which you'll find in the bottom left of each card. Abbreviates to `.p`. Multiple cards can be played by specifying multiple index numbers.\n`.intellect`, `.strength`, `.agility`, `.willpower <card>`: Plays the stated cards as a card of that trump suit, and continues drawing until no longer trump. Abbreviates to any reasonable shortening.\n`.flip`: You can flip a card from the deck at random. The card is immediately returned to the deck. Abbreviates to `.f`\n`.peek`: Peek at everyone's hand sizes and token counts.  \n`.boost`: Play a token. If you have tokens, they'll be listed in your hand. Abbreviates to `.b`.\n`.deregister`: Release a character. Folds the character's hand back into the deck. Abbreviates to `.d`\n`.gm`: Remind yourself of the GM's hand (which is face up).\n\n`.gameover`: Put the game back in the box. Deregisters all characters, and shuffles all cards back into the deck.\n\nGM Specific commands:\nOne player should register as the GM with `.r GM`.\n`.narrative`: Draw a new narrative card. The current narrative card will be pinned to the channel. Abbreviates to `.n`\n`.boost <username>`: Award a player a boost token. Abbreviates to `.b`")
     
 client.run(TOKEN)
