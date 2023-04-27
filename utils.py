@@ -69,7 +69,7 @@ class game:
             available.update(self.hands["Discard"])
             self.hands["Discard"] = set()
 
-        return set(random.sample(available, n))
+        return set(random.sample(sorted(available), n))
 
     def play_cards(self, user, cards: list, suit=False):
         #boost = self.boosted[user]
@@ -123,7 +123,7 @@ class game:
     def flip(self):
         card = self.draw_cards(1).pop()
         aura = self.card_details.iloc[card]['Aura']
-        response = {"title": "Flipped Card", "text": f"Aura = {aura}", "img": f'cards/ncard_{card}.jpg'}
+        response = {"title": "Flipped Card", "text": f"Aura = {aura}", "img": f'cards/ncard_{card}.png'}
         self.hands["Discard"].add(card)
         return response
 
@@ -141,7 +141,7 @@ class game:
             event = self.card_details.iloc[card]['Event']
             response['title'] = 'New Narrative Card!'
             response['text'] = f'Aura = {aura}\nValue = {value}\nCalling = {calling}\nEvent = {event}'
-            response['img'] = f'cards/ncard_{card}.jpg'
+            response['img'] = f'cards/ncard_{card}.png'
         else:
             response['title'] = 'Error'
             response['text'] = 'Only the GM may draw Narrative cards.'
