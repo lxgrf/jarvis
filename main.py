@@ -5,6 +5,7 @@ from discord_slash.utils.manage_components import create_button, create_actionro
 from discord_slash.model import ButtonStyle
 import pickle
 from os.path import exists
+import os
 import asyncio
 from dotenv import load_dotenv
 
@@ -171,7 +172,6 @@ async def play(ctx: SlashContext, suit, **cards):
         embed.set_image(url="attachment://image.jpg")
         await ctx.send(embed=embed, file=file)
 
-
 @slash.slash(name="flip", description="Flip a card at random.")
 async def flip(ctx: SlashContext):
     response = games[ctx.guild.id].flip()
@@ -180,7 +180,6 @@ async def flip(ctx: SlashContext):
     file = File(response["img"], filename="image.jpg")
     embed.set_image(url="attachment://image.jpg")
     await ctx.send(embed=embed, file=file)
-
 
 @slash.slash(name="GM_hand", description="View the cards in the GM's hand")
 async def gm_hand(ctx: SlashContext):
@@ -193,7 +192,6 @@ async def gm_hand(ctx: SlashContext):
     else:
         embed = Embed(title="GM's Hand", description="The GM's hand is empty. Perhaps play some Doom cards?")
         await ctx.send(embed=embed)
-
 
 @slash.slash(name="narrative", description="Draw a new narrative card.")
 async def narrative(ctx: SlashContext):
@@ -210,7 +208,6 @@ async def narrative(ctx: SlashContext):
         await pinmsg.pin()
     else:
         await ctx.send(embed=embed)
-
 
 @slash.slash(name="GameOver", description="Release all characters, shuffle cards back into deck.")
 async def gameover(ctx: SlashContext):
@@ -229,11 +226,9 @@ async def gameover(ctx: SlashContext):
     embed.set_image(url="attachment://snap.gif")
     await ctx.send(file=file, embed=embed)
 
-
 @slash.slash(name="damage", description="Sacrifice cards for damage.")
 async def damage(ctx: SlashContext):
     pass
-
 
 @slash.slash(name="giveBoost", description="GM Only. Assign a boost token to a player.")
 async def giveBoost(ctx: SlashContext, target: str):
@@ -248,7 +243,6 @@ async def giveBoost(ctx: SlashContext, target: str):
     else:
         embed = Embed(title="Token issuing error...", description="No such users found.")
     await ctx.send(embed=embed)
-
 
 @slash.slash(name="useBoost", description="Use a boost token.")
 async def useBoost(ctx: SlashContext):
